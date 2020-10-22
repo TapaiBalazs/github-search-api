@@ -23,12 +23,12 @@
     }
   },
   "projects": {
-    "tapai-balazs-github-search": {
+    "github-search": {
       "tags": []
     },
-    "tapai-balazs-github-search-e2e": {
+    "github-search-e2e": {
       "tags": [],
-      "implicitDependencies": ["tapai-balazs-github-search"]
+      "implicitDependencies": ["github-search"]
     }
   }
 }

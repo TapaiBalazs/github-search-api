@@ -1,5 +1,5 @@
 module.exports = {
-  displayName: 'tapai-balazs-github-search',
+  displayName: 'github-search',
   preset: '../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -14,7 +14,7 @@ module.exports = {
       },
     },
   },
-  coverageDirectory: '../../coverage/apps/tapai-balazs-github-search',
+  coverageDirectory: '../../coverage/apps/github-search',
   snapshotSerializers: [
     'jest-preset-angular/build/AngularNoNgAttributesSnapshotSerializer.js',
     'jest-preset-angular/build/AngularSnapshotSerializer.js',
