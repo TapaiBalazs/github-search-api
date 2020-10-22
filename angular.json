@@ -21,7 +21,10 @@
               "apps/github-search/src/favicon.ico",
               "apps/github-search/src/assets"
             ],
-            "styles": ["apps/github-search/src/styles.css"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css",
+              "apps/github-search/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -75,7 +78,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/github-search/src/**/*.ts"]
+            "lintFilePatterns": [
+              "apps/github-search/src/**/*.ts"
+            ]
           }
         },
         "test": {
