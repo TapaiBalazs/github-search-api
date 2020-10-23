@@ -4,8 +4,22 @@
 
 <br>
 
-<mat-progress-bar [value]="searchProgress$ | async"></mat-progress-bar>
+<div class="progress-bar-holder">
+  <ng-container *ngIf="searchProgress$ | async as searchProgress">
+    <mat-progress-bar [value]="searchProgress"></mat-progress-bar>
+  </ng-container>
+</div>
 
 <br>
 
-{{ searchResults$ | async | json }}
+<mat-paginator [length]="totalCount$ | async"
+               [pageSize]="pageSize$ | async"
+               (page)="onPagination($event)"
+               [pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator>
+
+<br>
+
+<div *ngFor="let user of users$ | async">
+  {{ user.login }}
+</div>

@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { UserSearchListResult } from '../../interfaces/user-search.interfaces';
@@ -18,11 +19,17 @@ export class UserSearchService {
 
   constructor(private http: HttpClient) {}
 
-  search(): Observable<UserSearchListResult> {
+  search(pagination: PageEvent): Observable<UserSearchListResult> {
     this.searchProgress.next(1);
-    return this.http.get<UserSearchListResult>(API_URL)
+    return this.http.get<UserSearchListResult>(this.createRequestUrl(pagination))
       .pipe(
         tap(_ => this.searchProgress.next(100))
       );
+  }
+
+  private createRequestUrl(pagination: PageEvent): string {
+    const per_page = `per_page=${pagination.pageSize}`
+    const page = `page=${pagination.pageIndex + 1}`
+    return `${API_URL}&${per_page}&${page}`;
   }
 }

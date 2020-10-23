@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { UserSearchServicesModule } from './components/services/user-search-services.module';
@@ -14,7 +15,8 @@ import { SearchRoutingModule } from './search-routing.module';
     SearchRoutingModule,
     MatButtonModule,
     MatProgressBarModule,
-    UserSearchServicesModule
+    UserSearchServicesModule,
+    MatPaginatorModule
   ]
 })
 export class SearchModule {
