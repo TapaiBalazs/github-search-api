@@ -1,4 +1,4 @@
-import { UserSearchListItem, UserSearchListResult } from '../components/interfaces/user-search.interfaces';
+import { UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
 
 export const MOCK_USER_1: UserSearchListItem = {
   'login': 'testuser',
