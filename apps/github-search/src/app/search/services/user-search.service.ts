@@ -23,6 +23,7 @@ export class UserSearchService {
     this.searchProgress.next(1);
     return this.http.get<UserSearchListResult>(this.createRequestUrl(pagination))
       .pipe(
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         tap(_ => this.searchProgress.next(100))
       );
   }

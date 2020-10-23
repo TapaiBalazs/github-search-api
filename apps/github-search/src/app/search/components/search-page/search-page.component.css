@@ -1,3 +1,7 @@
 .progress-bar-holder {
   height: 5px;
 }
+
+githubsearch-search-results-table {
+  height: 50vh;
+}

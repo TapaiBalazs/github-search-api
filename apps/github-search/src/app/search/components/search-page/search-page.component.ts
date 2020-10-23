@@ -1,24 +1,21 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { DEFAULT_PAGINATION_STATE } from '../../constants/pagination.constants';
 import { UserSearchListItem, UserSearchListResult } from '../../interfaces/user-search.interfaces';
 import { UserSearchService } from '../../services/user-search.service';
 
 @Component({
   selector: 'githubsearch-search-page',
   templateUrl: './search-page.component.html',
-  styleUrls: ['./search-page.component.css']
+  styleUrls: ['./search-page.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchPageComponent {
 
   private readonly searchAction = new Subject<void>();
-  private readonly pagination = new BehaviorSubject<PageEvent>({
-    length: 0,
-    pageIndex: 0,
-    pageSize: 10,
-    previousPageIndex: 0
-  });
+  private readonly pagination = new BehaviorSubject<PageEvent>(DEFAULT_PAGINATION_STATE);
 
   private readonly pagination$ = this.pagination.asObservable().pipe(shareReplay(1));
 
@@ -31,7 +28,8 @@ export class SearchPageComponent {
     this.searchAction.asObservable(),
     this.pagination$
   ]).pipe(
-    switchMap(([searcAction, pagination]) => this.userSearchService.search(pagination)),
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    switchMap(([searchAction, pagination]) => this.userSearchService.search(pagination)),
     shareReplay(1)
   );
 

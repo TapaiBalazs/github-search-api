@@ -1,0 +1,24 @@
+:host {
+  display: flex;
+  flex: 1 1 auto;
+  flex-flow: column nowrap;
+}
+
+.table-scrollable-container {
+  overflow: auto;
+  max-height: 50vh;
+}
+
+mat-table {
+  height: inherit;
+}
+
+.avatar {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+.username {
+  margin-left: 1.5rem;
+}

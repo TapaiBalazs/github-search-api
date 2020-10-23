@@ -1,0 +1,24 @@
+<div class="table-scrollable-container">
+  <mat-table mat-table [dataSource]="users">
+    <!-- Id -->
+    <ng-container matColumnDef="id" [sticky]="true">
+      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+    </ng-container>
+
+    <!-- Login Column -->
+    <ng-container matColumnDef="login" [sticky]="true">
+      <mat-header-cell *matHeaderCellDef> User login</mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <img class="avatar" [src]="element.avatar_url" [alt]="element.login + '\'s avatar'"/>
+        <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer">{{element.login}}</a>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <!--  <ng-container *ngIf=""></ng-container>-->
+  </mat-table>
+</div>
+<ng-content></ng-content>

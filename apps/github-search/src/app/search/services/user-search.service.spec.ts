@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
@@ -12,9 +13,9 @@ const MOCK_PAGE_OBJECT: PageEvent = {
   pageSize: 10,
   pageIndex: 0,
   length: 200,
-  previousPageIndex:0
-}
-const PAGED_APU_URL = `${API_URL_BASE}&per_page=${MOCK_PAGE_OBJECT.pageSize}&page=${MOCK_PAGE_OBJECT.pageIndex + 1}`
+  previousPageIndex: 0
+};
+const PAGED_APU_URL = `${API_URL_BASE}&per_page=${MOCK_PAGE_OBJECT.pageSize}&page=${MOCK_PAGE_OBJECT.pageIndex + 1}`;
 
 describe('UserSearchService', () => {
   let service: UserSearchService;

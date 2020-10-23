@@ -11,15 +11,12 @@
 </div>
 
 <br>
+<githubsearch-search-results-table class="mat-elevation-z8" [users]="users$ | async">
+  <mat-paginator [length]="totalCount$ | async"
+                 [pageSize]="pageSize$ | async"
+                 (page)="onPagination($event)"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</githubsearch-search-results-table>
 
-<mat-paginator [length]="totalCount$ | async"
-               [pageSize]="pageSize$ | async"
-               (page)="onPagination($event)"
-               [pageSizeOptions]="[5, 10, 25, 100]">
-</mat-paginator>
 
-<br>
-
-<div *ngFor="let user of users$ | async">
-  {{ user.login }}
-</div>
