@@ -1,1 +1,11 @@
 <p>search-page works!</p>
+
+<button color="accent" mat-raised-button (click)="triggerSearch()">Search</button>
+
+<br>
+
+<mat-progress-bar [value]="searchProgress$ | async"></mat-progress-bar>
+
+<br>
+
+{{ searchResults$ | async | json }}
