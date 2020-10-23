@@ -7,6 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
+import { SharedModule } from '../shared/shared.module';
 import { SearchPageComponent } from './components/search-page/search-page.component';
 import { UserSearchServicesModule } from './services/user-search-services.module';
 import { SearchRoutingModule } from './search-routing.module';
@@ -20,6 +21,7 @@ import { UserDetailsComponent } from './components/user-detail/user-details.comp
     CommonModule,
     SearchRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
     MatButtonModule,
     MatProgressBarModule,
     UserSearchServicesModule,

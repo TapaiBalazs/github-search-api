@@ -1,11 +1,19 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
+import { catchError, map, pluck, scan, shareReplay, startWith, switchMap, take, tap } from 'rxjs/operators';
+import { error } from 'util';
 import { DEFAULT_PAGINATION_STATE } from '../../constants/pagination.constants';
 import { UserSearchListItem, UserSearchListResult } from '../../interfaces/user-search.interfaces';
 import { UserSearchService } from '../../services/user-search.service';
+
+const INITIAL_SEARCH_RESULTS: UserSearchListResult = {
+  total_count: 0,
+  items: []
+};
+
+type SearchActions = 'START' | 'STOP';
 
 @Component({
   selector: 'githubsearch-search-page',
@@ -19,8 +27,9 @@ export class SearchPageComponent {
     userName: ['']
   })
 
-  private readonly searchAction = new Subject<void>();
+  private readonly searchAction = new Subject<SearchActions>();
   private readonly pagination = new BehaviorSubject<PageEvent>(DEFAULT_PAGINATION_STATE);
+  private readonly isSearching = new BehaviorSubject<boolean>(false);
 
   private readonly pagination$ = this.pagination.asObservable().pipe(shareReplay(1));
 
@@ -28,13 +37,25 @@ export class SearchPageComponent {
     .pipe(pluck('pageSize'));
 
   readonly selectedUser$ = this.userSearchService.selectedUser$;
+  readonly searchAction$ = this.searchAction.asObservable()
+    .pipe(tap((action: SearchActions) => this.isSearching.next(action === 'START')));
+  readonly isSearching$ = this.isSearching.asObservable();
 
   readonly searchResults$: Observable<UserSearchListResult> = combineLatest([
-    this.searchAction.asObservable(),
+    this.searchAction$,
     this.pagination$
   ]).pipe(
+    switchMap(([searchAction, pagination]) => {
+      if (searchAction === 'STOP') {
+        return of(null);
+      }
+      return this.userSearchService.search(pagination)
+        .pipe(catchError(error => of(null)))
+    }),
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    switchMap(([searchAction, pagination]) => this.userSearchService.search(pagination)),
+    tap(_ => this.isSearching.next(false)),
+    startWith(INITIAL_SEARCH_RESULTS),
+    scan((previous, next) => next || previous),
     shareReplay(1)
   );
 
@@ -52,12 +73,11 @@ export class SearchPageComponent {
   constructor(private formBuilder: FormBuilder, private userSearchService: UserSearchService) {
   }
 
-  triggerSearch(): void {
-    this.searchAction.next();
+  triggerSearch(isSearching: boolean): void {
+    this.searchAction.next(isSearching ? 'STOP' : 'START');
   }
 
   onPagination(page: PageEvent): void {
     this.pagination.next(page);
   }
-
 }

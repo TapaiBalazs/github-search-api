@@ -29,3 +29,7 @@
   grid-area: errors;
   padding: 1rem;
 }
+
+.search-button {
+  width: 5rem;
+}

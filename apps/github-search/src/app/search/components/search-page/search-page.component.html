@@ -1,6 +1,13 @@
 <form class="search-filter" [formGroup]="form">
 
-  <button color="accent" mat-raised-button (click)="triggerSearch()">Search</button>
+  <button *ngLet="isSearching$ | async as isSearching"
+          mat-raised-button
+          class="search-button"
+          [color]="isSearching ? 'warn' : 'accent'"
+          (click)="triggerSearch(isSearching)">
+    <ng-container *ngIf="!isSearching; else stop">Search</ng-container>
+    <ng-template #stop>Stop</ng-template>
+  </button>
 </form>
 <githubsearch-search-results-table class="results-table" [users]="users$ | async">
   <mat-paginator [length]="totalCount$ | async"
