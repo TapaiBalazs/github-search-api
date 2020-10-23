@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { UserSearchListItem } from '../../interfaces/user-search.interfaces';
+import { UserSearchService } from '../../services/user-search.service';
 
 @Component({
   selector: 'githubsearch-search-results-table',
@@ -12,6 +13,14 @@ export class SearchResultsTableComponent {
   @Input()
   users: UserSearchListItem[] = [];
 
-  readonly displayedColumns = ['id',  'login']
+  readonly displayedColumns = ['login', 'id', 'viewOnGithub', 'userDetails'];
+  readonly emptyGridcolumns = ['noRecord']
+
+  constructor(private userSearchService: UserSearchService) {
+  }
+
+  openDetails(user: UserSearchListItem): void {
+    this.userSearchService.fetchUserDetails(user);
+  }
 
 }

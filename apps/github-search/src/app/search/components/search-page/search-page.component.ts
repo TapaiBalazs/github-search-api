@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
@@ -14,15 +15,19 @@ import { UserSearchService } from '../../services/user-search.service';
 })
 export class SearchPageComponent {
 
+  readonly form: FormGroup = this.formBuilder.group({
+    userName: ['']
+  })
+
   private readonly searchAction = new Subject<void>();
   private readonly pagination = new BehaviorSubject<PageEvent>(DEFAULT_PAGINATION_STATE);
 
   private readonly pagination$ = this.pagination.asObservable().pipe(shareReplay(1));
 
-  readonly searchProgress$: Observable<number> = this.userSearchService.searchProgress$;
-
   readonly pageSize$: Observable<number> = this.pagination$
     .pipe(pluck('pageSize'));
+
+  readonly selectedUser$ = this.userSearchService.selectedUser$;
 
   readonly searchResults$: Observable<UserSearchListResult> = combineLatest([
     this.searchAction.asObservable(),
@@ -44,7 +49,7 @@ export class SearchPageComponent {
       startWith(0)
     );
 
-  constructor(private userSearchService: UserSearchService) {
+  constructor(private formBuilder: FormBuilder, private userSearchService: UserSearchService) {
   }
 
   triggerSearch(): void {

@@ -1,24 +1,49 @@
-<div class="table-scrollable-container">
-  <mat-table mat-table [dataSource]="users">
-    <!-- Id -->
-    <ng-container matColumnDef="id" [sticky]="true">
-      <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
-    </ng-container>
+<div class=" mat-elevation-z8">
+  <div class="table-scrollable-container">
+    <mat-table mat-table [dataSource]="users">
+      <!-- Id -->
+      <ng-container matColumnDef="id" [sticky]="true">
+        <mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+      </ng-container>
 
-    <!-- Login Column -->
-    <ng-container matColumnDef="login" [sticky]="true">
-      <mat-header-cell *matHeaderCellDef> User login</mat-header-cell>
-      <mat-cell *matCellDef="let element">
-        <img class="avatar" [src]="element.avatar_url" [alt]="element.login + '\'s avatar'"/>
-        <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer">{{element.login}}</a>
-      </mat-cell>
-    </ng-container>
+      <!-- Username Column -->
+      <ng-container matColumnDef="login" [sticky]="true">
+        <mat-header-cell *matHeaderCellDef> Username</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img class="avatar" [src]="element.avatar_url" [alt]="element.login + '\'s avatar'" />
+          <span class="username">{{element.login}}</span>
+        </mat-cell>
+      </ng-container>
 
-    <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
-    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <!-- Link to GitHub -->
+      <ng-container matColumnDef="viewOnGithub" [sticky]="true">
+        <mat-header-cell *matHeaderCellDef>GibHub link</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer">View {{element.login}} on GitHub</a>
+        </mat-cell>
+      </ng-container>
 
-    <!--  <ng-container *ngIf=""></ng-container>-->
-  </mat-table>
+      <!-- See user details button -->
+      <ng-container matColumnDef="userDetails" [sticky]="true">
+        <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-button (click)="openDetails(element)">
+            <span class="see-details-button-text">See details</span>
+            <mat-icon>read_more</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+      <tr class="mat-row no-data-row" *matNoDataRow>
+        <h3>
+          No users match your search criteria.
+        </h3>
+      </tr>
+
+    </mat-table>
+  </div>
+  <ng-content></ng-content>
 </div>
-<ng-content></ng-content>

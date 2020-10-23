@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { waitForAsync } from '@angular/core/testing';
+import { FormBuilder } from '@angular/forms';
 import { of } from 'rxjs';
 import { skip, take } from 'rxjs/operators';
 import { DEFAULT_PAGINATION_STATE } from '../../constants/pagination.constants';
@@ -17,8 +18,15 @@ describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
 
   beforeEach(() => {
-    component = new SearchPageComponent(MOCK_USER_SEARCH_SERVICE as never);
+    component = new SearchPageComponent(
+      new FormBuilder(),
+      MOCK_USER_SEARCH_SERVICE as never
+    );
   });
+
+  afterEach(() => {
+    jest.resetAllMocks();
+  })
 
   it(`'triggerSearch' should call search in the 'UserSearchService'`, waitForAsync(() => {
     MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(of({}));

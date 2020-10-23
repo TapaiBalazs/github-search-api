@@ -1,4 +1,4 @@
-import { UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
+import { UserDetail, UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
 
 export const MOCK_USER_1: UserSearchListItem = {
   'login': 'testuser',
@@ -43,6 +43,19 @@ export const MOCK_USER_2: UserSearchListItem = {
   'site_admin': false,
   'score': 1
 };
+
+export const MOCK_USER_DETAIL_1: UserDetail = {
+  ...MOCK_USER_1,
+  bio: 'I die hard.',
+  name: 'John McClane',
+  blog: 'nakatomi.tower',
+  following: 6,
+  followers: 9,
+  public_gists: 7,
+  public_repos: 3,
+  company: 'NYPD',
+  location: 'San Francisco',
+}
 
 export const MOCK_USER_SEARCH_RESULT: UserSearchListResult = {
   'total_count': 2,

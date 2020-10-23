@@ -25,3 +25,15 @@ export interface UserSearchListItem {
   site_admin: boolean;
   score: number;
 }
+
+export interface UserDetail extends UserSearchListItem {
+  name: string;
+  bio: string;
+  blog: string;
+  following: number;
+  followers: number;
+  public_gists: number;
+  public_repos: number;
+  company: string;
+  location: string;
+}

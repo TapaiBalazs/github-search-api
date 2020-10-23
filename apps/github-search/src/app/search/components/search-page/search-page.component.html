@@ -1,22 +1,19 @@
-<p>search-page works!</p>
+<form class="search-filter" [formGroup]="form">
 
-<button color="accent" mat-raised-button (click)="triggerSearch()">Search</button>
-
-<br>
-
-<div class="progress-bar-holder">
-  <ng-container *ngIf="searchProgress$ | async as searchProgress">
-    <mat-progress-bar [value]="searchProgress"></mat-progress-bar>
-  </ng-container>
-</div>
-
-<br>
-<githubsearch-search-results-table class="mat-elevation-z8" [users]="users$ | async">
+  <button color="accent" mat-raised-button (click)="triggerSearch()">Search</button>
+</form>
+<githubsearch-search-results-table class="results-table" [users]="users$ | async">
   <mat-paginator [length]="totalCount$ | async"
                  [pageSize]="pageSize$ | async"
                  (page)="onPagination($event)"
                  [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
 </githubsearch-search-results-table>
+
+<div class="error-message"></div>
+
+<githubsearch-user-details class="user-details" [user]="selectedUser$ | async">
+</githubsearch-user-details>
+
 
 

@@ -1,0 +1,22 @@
+.user-details {
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bio {
+  width: 50%;
+}
+
+.user-avatar {
+  width: 15rem;
+  height: 15rem;
+}
+
+.no-user-selected {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}

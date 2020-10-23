@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { UserSearchListResult } from '../interfaces/user-search.interfaces';
+import { UserDetail, UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
 import { UserSearchServicesModule } from './user-search-services.module';
 
 const API_URL = `https://api.github.com/search/users?q=type:user`;
@@ -13,24 +12,27 @@ const API_URL = `https://api.github.com/search/users?q=type:user`;
 })
 export class UserSearchService {
 
-  private searchProgress = new BehaviorSubject(0);
-  readonly searchProgress$ = this.searchProgress.asObservable()
-    .pipe(map(percentage => percentage >= 100 ? 0 : percentage));
+  private error = new BehaviorSubject<unknown>(null);
+  private selectedUser = new BehaviorSubject<UserDetail>(null);
+  readonly selectedUser$ = this.selectedUser.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   search(pagination: PageEvent): Observable<UserSearchListResult> {
-    this.searchProgress.next(1);
-    return this.http.get<UserSearchListResult>(this.createRequestUrl(pagination))
-      .pipe(
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        tap(_ => this.searchProgress.next(100))
-      );
+    return this.http.get<UserSearchListResult>(this.createRequestUrl(pagination));
+  }
+
+  fetchUserDetails(user: UserSearchListItem): void {
+    this.http.get<UserDetail>(user.url).subscribe({
+      next: (userDetail) => this.selectedUser.next(userDetail),
+      error: (error) => this.error.next(error)
+    });
   }
 
   private createRequestUrl(pagination: PageEvent): string {
-    const per_page = `per_page=${pagination.pageSize}`
-    const page = `page=${pagination.pageIndex + 1}`
+    const per_page = `per_page=${pagination.pageSize}`;
+    const page = `page=${pagination.pageIndex + 1}`;
     return `${API_URL}&${per_page}&${page}`;
   }
 }

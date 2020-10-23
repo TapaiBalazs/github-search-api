@@ -3,7 +3,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
 import { skip, take } from 'rxjs/operators';
-import { MOCK_USER_1, MOCK_USER_2, MOCK_USER_SEARCH_RESULT } from '../test-resources/search-results.test-data';
+import { MOCK_USER_1, MOCK_USER_2, MOCK_USER_DETAIL_1, MOCK_USER_SEARCH_RESULT } from '../test-resources/search-results.test-data';
 import { UserSearchServicesModule } from './user-search-services.module';
 import { UserSearchService } from './user-search.service';
 
@@ -44,19 +44,19 @@ describe('UserSearchService', () => {
       .flush(MOCK_USER_SEARCH_RESULT);
   }));
 
-  it(`'search' method sets the state of the 'searchProgress$' observable`, waitForAsync(() => {
-    service.searchProgress$.pipe(take(1))
-      .subscribe(progress => expect(progress).toEqual(0));
-    service.searchProgress$.pipe(skip(1), take(1))
-      .subscribe(progress => expect(progress).toEqual(1));
-    service.searchProgress$.pipe(skip(2), take(1))
-      .subscribe(progress => expect(progress).toEqual(0));
+  it(`selectedUser$ is null by default`, waitForAsync(() => {
+    service.selectedUser$.pipe(take(1))
+      .subscribe(user => expect(user).toBe(null));
+  }));
 
+  it(`'fetchUserDetails' method retrieves the user's information and sets it as the selected user`, waitForAsync(() => {
+    service.selectedUser$.pipe(skip(1), take(1))
+      .subscribe(user => expect(user).toBe(MOCK_USER_DETAIL_1))
 
-    service.search(MOCK_PAGE_OBJECT).subscribe();
+    service.fetchUserDetails(MOCK_USER_1);
 
-    httpMock.expectOne({ method: 'GET', url: PAGED_APU_URL }, `${PAGED_APU_URL} should have been called once`)
-      .flush(MOCK_USER_SEARCH_RESULT);
+    httpMock.expectOne({ method: 'GET', url: MOCK_USER_1.url }, `${MOCK_USER_1.url} should have been called once`)
+      .flush(MOCK_USER_DETAIL_1);
   }));
 
 });
