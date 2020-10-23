@@ -1,8 +1,4 @@
-import {
-  UserDetail,
-  UserSearchListItem,
-  UserSearchListResult,
-} from '../interfaces/user-search.interfaces';
+import { UserDetail, UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
 
 export const MOCK_USER_1: UserSearchListItem = {
   login: 'testuser',
@@ -35,17 +31,14 @@ export const MOCK_USER_2: UserSearchListItem = {
   url: 'https://api.github.com/users/anotheruser',
   html_url: 'https://github.com/anotheruser',
   followers_url: 'https://api.github.com/users/anotheruser/followers',
-  following_url:
-    'https://api.github.com/users/anotheruser/following{/other_user}',
+  following_url: 'https://api.github.com/users/anotheruser/following{/other_user}',
   gists_url: 'https://api.github.com/users/anotheruser/gists{/gist_id}',
-  starred_url:
-    'https://api.github.com/users/anotheruser/starred{/owner}{/repo}',
+  starred_url: 'https://api.github.com/users/anotheruser/starred{/owner}{/repo}',
   subscriptions_url: 'https://api.github.com/users/anotheruser/subscriptions',
   organizations_url: 'https://api.github.com/users/anotheruser/orgs',
   repos_url: 'https://api.github.com/users/anotheruser/repos',
   events_url: 'https://api.github.com/users/anotheruser/events{/privacy}',
-  received_events_url:
-    'https://api.github.com/users/anotheruser/received_events',
+  received_events_url: 'https://api.github.com/users/anotheruser/received_events',
   type: 'User',
   site_admin: false,
   score: 1,

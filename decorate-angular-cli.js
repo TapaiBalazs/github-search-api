@@ -29,9 +29,7 @@ let output;
 try {
   output = require('@nrwl/workspace').output;
 } catch (e) {
-  console.warn(
-    'Angular CLI could not be decorated to enable computation caching. Please ensure @nrwl/workspace is installed.'
-  );
+  console.warn('Angular CLI could not be decorated to enable computation caching. Please ensure @nrwl/workspace is installed.');
   process.exit(0);
 }
 
@@ -74,8 +72,7 @@ function symlinkNgCLItoNxCLI() {
        * Such that it works in all shells and works with npx.
        */
       ['', '.cmd', '.ps1'].forEach((ext) => {
-        if (fs.existsSync(nxPath + ext))
-          fs.writeFileSync(ngPath + ext, fs.readFileSync(nxPath + ext));
+        if (fs.existsSync(nxPath + ext)) fs.writeFileSync(ngPath + ext, fs.readFileSync(nxPath + ext));
       });
     } else {
       // If unix-based, symlink
@@ -83,9 +80,7 @@ function symlinkNgCLItoNxCLI() {
     }
   } catch (e) {
     output.error({
-      title:
-        'Unable to create a symlink from the Angular CLI to the Nx CLI:' +
-        e.message,
+      title: 'Unable to create a symlink from the Angular CLI to the Nx CLI:' + e.message,
     });
     throw e;
   }

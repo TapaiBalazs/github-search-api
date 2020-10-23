@@ -2,9 +2,7 @@
   <mat-card class="mat-elevation-z8">
     <mat-card-header>
       <mat-card-title>{{ user.name }}</mat-card-title>
-      <mat-card-subtitle
-        >{{ user.login }} {{ user.location }}</mat-card-subtitle
-      >
+      <mat-card-subtitle>{{ user.login }} {{ user.location }}</mat-card-subtitle>
       <mat-card-subtitle>Company: {{ user.company }}</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
@@ -16,34 +14,22 @@
           </p>
           <p>
             Following:
-            <a [href]="user.following_url" target="_blank">{{
-              user.following
-            }}</a>
+            <a [href]="user.following_url" target="_blank">{{ user.following }}</a>
           </p>
           <p>
             Followers:
-            <a [href]="user.followers_url" target="_blank">{{
-              user.followers
-            }}</a>
+            <a [href]="user.followers_url" target="_blank">{{ user.followers }}</a>
           </p>
           <p>
             Public gists:
-            <a [href]="user.gists_url" target="_blank">{{
-              user.public_gists
-            }}</a>
+            <a [href]="user.gists_url" target="_blank">{{ user.public_gists }}</a>
           </p>
           <p>
             Public repositories:
-            <a [href]="user.repos_url" target="_blank">{{
-              user.public_repos
-            }}</a>
+            <a [href]="user.repos_url" target="_blank">{{ user.public_repos }}</a>
           </p>
         </div>
-        <img
-          class="user-avatar"
-          [src]="user.avatar_url"
-          [alt]="user.name + '\'s avatar'"
-        />
+        <img class="user-avatar" [src]="user.avatar_url" [alt]="user.name + '\'s avatar'" />
       </div>
     </mat-card-content>
   </mat-card>

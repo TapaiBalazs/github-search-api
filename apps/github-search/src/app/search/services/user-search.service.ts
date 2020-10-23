@@ -2,35 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import {
-  UserDetail,
-  UserSearchListItem,
-  UserSearchListResult,
-} from '../interfaces/user-search.interfaces';
+import { catchError, switchMap, take } from 'rxjs/operators';
+import { RawSearchForm } from '../interfaces/search-form.interfaces';
+import { UserDetail, UserSearchListItem, UserSearchListResult } from '../interfaces/user-search.interfaces';
+import { buildQuery } from '../utils/query-builder.util';
 import { UserSearchServicesModule } from './user-search-services.module';
 
-const API_URL = `https://api.github.com/search/users?q=type:user`;
+const API_URL = `https://api.github.com/search/users`;
 
 @Injectable({
   providedIn: UserSearchServicesModule,
 })
 export class UserSearchService {
+  private queryBase = new BehaviorSubject<RawSearchForm>(null);
   private error = new BehaviorSubject<unknown>(null);
   private selectedUser = new BehaviorSubject<UserDetail>(null);
+
+  readonly query$: Observable<string> = this.queryBase.asObservable().pipe(buildQuery());
   readonly selectedUser$ = this.selectedUser.asObservable();
 
   constructor(private http: HttpClient) {}
 
   search(pagination: PageEvent): Observable<UserSearchListResult> {
-    return this.http
-      .get<UserSearchListResult>(this.createRequestUrl(pagination))
-      .pipe(
-        catchError((error) => {
-          this.error.next(error);
-          return throwError(error);
-        })
-      );
+    return this.query$.pipe(
+      take(1),
+      switchMap((query) => this.http.get<UserSearchListResult>(this.createRequestUrl(query, pagination))),
+      catchError((error) => {
+        this.error.next(error);
+        return throwError(error);
+      })
+    );
   }
 
   fetchUserDetails(user: UserSearchListItem): void {
@@ -40,9 +41,13 @@ export class UserSearchService {
     });
   }
 
-  private createRequestUrl(pagination: PageEvent): string {
+  setFilter(filter: RawSearchForm): void {
+    this.queryBase.next(filter);
+  }
+
+  private createRequestUrl(query: string, pagination: PageEvent): string {
     const per_page = `per_page=${pagination.pageSize}`;
     const page = `page=${pagination.pageIndex + 1}`;
-    return `${API_URL}&${per_page}&${page}`;
+    return `${API_URL}${query}&${per_page}&${page}`;
   }
 }

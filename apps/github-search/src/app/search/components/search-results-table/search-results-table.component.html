@@ -7,15 +7,11 @@
         <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
       </ng-container>
 
-      <!-- Username Column -->
+      <!-- User Column -->
       <ng-container matColumnDef="login" [sticky]="true">
-        <mat-header-cell *matHeaderCellDef> Username</mat-header-cell>
+        <mat-header-cell *matHeaderCellDef>User</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <img
-            class="avatar"
-            [src]="element.avatar_url"
-            [alt]="element.login + '\'s avatar'"
-          />
+          <img class="avatar" [src]="element.avatar_url" [alt]="element.login + '\'s avatar'" />
           <span class="username">{{ element.login }}</span>
         </mat-cell>
       </ng-container>
@@ -24,13 +20,7 @@
       <ng-container matColumnDef="viewOnGithub" [sticky]="true">
         <mat-header-cell *matHeaderCellDef>GibHub link</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a
-            class="username"
-            [href]="element.html_url"
-            target="_blank"
-            referrerpolicy="no-referrer"
-            >View {{ element.login }} on GitHub</a
-          >
+          <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer">View {{ element.login }} on GitHub</a>
         </mat-cell>
       </ng-container>
 
@@ -45,9 +35,7 @@
         </mat-cell>
       </ng-container>
 
-      <mat-header-row
-        *matHeaderRowDef="displayedColumns; sticky: true"
-      ></mat-header-row>
+      <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
       <tr class="mat-row no-data-row" *matNoDataRow>
         <h3>

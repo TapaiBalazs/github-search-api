@@ -1,4 +1,5 @@
-<form class="search-filter" [formGroup]="form">
+<div class="search-filter">
+  <githubsearch-search-filter-form> </githubsearch-search-filter-form>
   <button
     *ngLet="isSearching$ | async as isSearching"
     mat-raised-button
@@ -9,21 +10,15 @@
     <ng-container *ngIf="!isSearching; else stop">Search</ng-container>
     <ng-template #stop>Stop</ng-template>
   </button>
-</form>
-<githubsearch-search-results-table
-  class="results-table"
-  [users]="users$ | async"
->
-  <mat-paginator
-    [length]="totalCount$ | async"
-    [pageSize]="pageSize$ | async"
-    (page)="onPagination($event)"
-    [pageSizeOptions]="[5, 10, 25, 100]"
-  >
+</div>
+
+<div class="messages">
+  {{ query$ | async }}
+</div>
+
+<githubsearch-search-results-table class="results-table" [users]="users$ | async">
+  <mat-paginator [length]="totalCount$ | async" [pageSize]="pageSize$ | async" (page)="onPagination($event)" [pageSizeOptions]="[5, 10, 25, 100]">
   </mat-paginator>
 </githubsearch-search-results-table>
 
-<div class="error-message"></div>
-
-<githubsearch-user-details class="user-details" [user]="selectedUser$ | async">
-</githubsearch-user-details>
+<githubsearch-user-details class="user-details" [user]="selectedUser$ | async"> </githubsearch-user-details>

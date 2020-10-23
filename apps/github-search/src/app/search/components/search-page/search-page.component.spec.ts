@@ -1,6 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-unused-vars,sonarjs/no-identical-functions */
 import { waitForAsync } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
 import { of, throwError } from 'rxjs';
 import { delay, skip, take } from 'rxjs/operators';
 import { DEFAULT_PAGINATION_STATE } from '../../constants/pagination.constants';
@@ -28,10 +27,7 @@ describe('SearchPageComponent', () => {
   let component: SearchPageComponent;
 
   beforeEach(() => {
-    component = new SearchPageComponent(
-      new FormBuilder(),
-      MOCK_USER_SEARCH_SERVICE as never
-    );
+    component = new SearchPageComponent(MOCK_USER_SEARCH_SERVICE as never);
   });
 
   afterEach(() => {
@@ -51,15 +47,11 @@ describe('SearchPageComponent', () => {
   it(
     `'triggerSearch' should call 'search' method in the 'UserSearchService'`,
     waitForAsync(() => {
-      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(
-        of({ items: [{ login: 'shouldreach' }] })
-      );
+      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(of({ items: [{ login: 'shouldreach' }] }));
 
       component.searchResults$.pipe(skip(1), take(1)).subscribe((result) => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(1);
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(
-          DEFAULT_PAGINATION_STATE
-        );
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(DEFAULT_PAGINATION_STATE);
         expect(result.items.length).toEqual(1);
         expect(result.items[0].login).toEqual('shouldreach');
       });
@@ -71,15 +63,11 @@ describe('SearchPageComponent', () => {
   it(
     `'triggerSearch' should return the previous cached value if the search request returns an error`,
     waitForAsync(() => {
-      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(
-        throwError(new Error('Rate limit exceeded'))
-      );
+      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(throwError(new Error('Rate limit exceeded')));
 
       component.searchResults$.pipe(skip(1), take(1)).subscribe((result) => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(1);
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(
-          DEFAULT_PAGINATION_STATE
-        );
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(DEFAULT_PAGINATION_STATE);
         expect(result.items.length).toEqual(0);
       });
 
@@ -90,15 +78,11 @@ describe('SearchPageComponent', () => {
   it(
     `when a search request takes too long, the user can cancel the request`,
     waitForAsync(() => {
-      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(
-        of({ items: [{ login: 'shouldnotreach' }] }).pipe(delay(1000))
-      );
+      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(of({ items: [{ login: 'shouldnotreach' }] }).pipe(delay(1000)));
 
       component.searchResults$.pipe(skip(1), take(1)).subscribe((result) => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(1);
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(
-          DEFAULT_PAGINATION_STATE
-        );
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(DEFAULT_PAGINATION_STATE);
         expect(result.items.length).toEqual(0);
       });
 
@@ -114,9 +98,7 @@ describe('SearchPageComponent', () => {
 
       component.searchResults$.pipe(skip(1), take(1)).subscribe((_) => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(1);
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(
-          MOCK_PAGINATION_EVENT_2
-        );
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledWith(MOCK_PAGINATION_EVENT_2);
       });
 
       component.onPagination(MOCK_PAGINATION_EVENT_1);
@@ -133,18 +115,9 @@ describe('SearchPageComponent', () => {
 
       component.searchResults$.pipe(skip(3), take(1)).subscribe((_) => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(3);
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(
-          1,
-          DEFAULT_PAGINATION_STATE
-        );
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(
-          2,
-          MOCK_PAGINATION_EVENT_1
-        );
-        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(
-          3,
-          MOCK_PAGINATION_EVENT_2
-        );
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(1, DEFAULT_PAGINATION_STATE);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(2, MOCK_PAGINATION_EVENT_1);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(3, MOCK_PAGINATION_EVENT_2);
       });
 
       component.triggerSearch(false);
