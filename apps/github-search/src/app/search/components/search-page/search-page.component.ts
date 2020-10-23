@@ -3,7 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
 import { pluck, shareReplay, startWith, switchMap } from 'rxjs/operators';
 import { UserSearchListItem, UserSearchListResult } from '../../interfaces/user-search.interfaces';
-import { UserSearchService } from '../services/user-search.service';
+import { UserSearchService } from '../../services/user-search.service';
 
 @Component({
   selector: 'githubsearch-search-page',

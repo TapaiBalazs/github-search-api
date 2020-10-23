@@ -2,7 +2,7 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed, waitForAsync } from '@angular/core/testing';
 import { PageEvent } from '@angular/material/paginator';
 import { skip, take } from 'rxjs/operators';
-import { MOCK_USER_1, MOCK_USER_2, MOCK_USER_SEARCH_RESULT } from '../../test-resources/search-results.test-data';
+import { MOCK_USER_1, MOCK_USER_2, MOCK_USER_SEARCH_RESULT } from '../test-resources/search-results.test-data';
 import { UserSearchServicesModule } from './user-search-services.module';
 import { UserSearchService } from './user-search.service';
 

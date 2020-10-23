@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { UserSearchListResult } from '../../interfaces/user-search.interfaces';
+import { UserSearchListResult } from '../interfaces/user-search.interfaces';
 import { UserSearchServicesModule } from './user-search-services.module';
 
 const API_URL = `https://api.github.com/search/users?q=type:user`;
