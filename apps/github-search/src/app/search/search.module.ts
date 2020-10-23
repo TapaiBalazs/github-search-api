@@ -14,9 +14,12 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserDetailsComponent } from './components/user-detail/user-details.component';
 
-
 @NgModule({
-  declarations: [SearchPageComponent, SearchResultsTableComponent, UserDetailsComponent],
+  declarations: [
+    SearchPageComponent,
+    SearchResultsTableComponent,
+    UserDetailsComponent,
+  ],
   imports: [
     CommonModule,
     SearchRoutingModule,
@@ -28,8 +31,7 @@ import { UserDetailsComponent } from './components/user-detail/user-details.comp
     MatPaginatorModule,
     MatTableModule,
     MatCardModule,
-    MatIconModule
-  ]
+    MatIconModule,
+  ],
 })
-export class SearchModule {
-}
+export class SearchModule {}

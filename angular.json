@@ -78,9 +78,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/github-search/src/**/*.ts"
-            ]
+            "lintFilePatterns": ["apps/github-search/src/**/*.ts"]
           }
         },
         "test": {
@@ -113,9 +111,7 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": [
-              "apps/github-search-e2e/**/*.{js,ts}"
-            ]
+            "lintFilePatterns": ["apps/github-search-e2e/**/*.{js,ts}"]
           }
         }
       }

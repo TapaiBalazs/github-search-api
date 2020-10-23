@@ -3,6 +3,6 @@ import { NgLetDirective } from './directives/ng-let.directive';
 
 @NgModule({
   declarations: [NgLetDirective],
-  exports: [NgLetDirective]
+  exports: [NgLetDirective],
 })
-export class SharedModule { }
+export class SharedModule {}

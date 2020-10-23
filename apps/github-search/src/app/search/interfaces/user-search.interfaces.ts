@@ -21,7 +21,7 @@ export interface UserSearchListItem {
   repos_url: string;
   events_url: string;
   received_events_url: string;
-  type: 'User',
+  type: 'User';
   site_admin: boolean;
   score: number;
 }

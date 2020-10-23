@@ -5,7 +5,7 @@ import { UserDetail } from '../../interfaces/user-search.interfaces';
   selector: 'githubsearch-user-details',
   templateUrl: './user-details.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styleUrls: ['./user-details.component.css']
+  styleUrls: ['./user-details.component.css'],
 })
 export class UserDetailsComponent {
   @Input()
