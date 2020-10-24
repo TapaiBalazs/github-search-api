@@ -27,12 +27,16 @@ export class SearchPageComponent {
   private readonly pagination$ = this.pagination.asObservable().pipe(shareReplay(1));
 
   readonly isSearching$ = this.isSearching.asObservable();
-  readonly query$ = this.userSearchService.query$;
   readonly selectedUser$ = this.userSearchService.selectedUser$;
   readonly pageSize$: Observable<number> = this.pagination$.pipe(pluck('pageSize'));
-  readonly searchAction$ = this.searchAction.asObservable().pipe(tap((action: SearchActions) => this.isSearching.next(action === 'START')));
+  readonly searchAction$ = this.searchAction
+    .asObservable()
+    .pipe(tap((action: SearchActions) => this.isSearching.next(action === 'START')));
 
-  readonly searchResults$: Observable<UserSearchListResult> = combineLatest([this.searchAction$, this.pagination$]).pipe(
+  readonly searchResults$: Observable<UserSearchListResult> = combineLatest([
+    this.searchAction$,
+    this.pagination$,
+  ]).pipe(
     switchMap(([searchAction, pagination]) => {
       if (searchAction === 'STOP') {
         return of(null);
@@ -51,8 +55,14 @@ export class SearchPageComponent {
     shareReplay(1)
   );
 
-  readonly users$: Observable<UserSearchListItem[]> = this.searchResults$.pipe(pluck<UserSearchListResult, UserSearchListItem[]>('items'), startWith([]));
-  readonly totalCount$: Observable<number> = this.searchResults$.pipe(pluck<UserSearchListResult, number>('total_count'), startWith(0));
+  readonly users$: Observable<UserSearchListItem[]> = this.searchResults$.pipe(
+    pluck<UserSearchListResult, UserSearchListItem[]>('items'),
+    startWith([])
+  );
+  readonly totalCount$: Observable<number> = this.searchResults$.pipe(
+    pluck<UserSearchListResult, number>('total_count'),
+    startWith(0)
+  );
 
   constructor(private userSearchService: UserSearchService) {}
 

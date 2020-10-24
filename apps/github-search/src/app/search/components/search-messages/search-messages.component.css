@@ -1,0 +1,20 @@
+:host {
+  padding: 0 1rem;
+}
+
+.messages-container {
+  padding: 0.5rem;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.error {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-sizing: border-box;
+  border: 2px solid #f44336;
+  border-radius: 0.5rem;
+  background-color: #ffc8c8;
+  padding: 0.5rem;
+}

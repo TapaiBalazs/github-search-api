@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
@@ -12,6 +12,12 @@ import { UserSearchService } from '../../services/user-search.service';
 })
 export class SearchFilterFormComponent implements OnInit, OnDestroy {
   private valueChangesSub: Subscription;
+
+  @Input()
+  isSearchInProgress = false;
+
+  @Output()
+  readonly triggerSearch = new EventEmitter<boolean>();
 
   readonly form = this.formBuilder.group({
     login: [''],

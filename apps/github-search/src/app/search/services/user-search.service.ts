@@ -19,11 +19,13 @@ export class UserSearchService {
   private selectedUser = new BehaviorSubject<UserDetail>(null);
 
   readonly query$: Observable<string> = this.queryBase.asObservable().pipe(buildQuery());
+  readonly error$: Observable<unknown> = this.error.asObservable();
   readonly selectedUser$ = this.selectedUser.asObservable();
 
   constructor(private http: HttpClient) {}
 
   search(pagination: PageEvent): Observable<UserSearchListResult> {
+    this.error.next(null);
     return this.query$.pipe(
       take(1),
       switchMap((query) => this.http.get<UserSearchListResult>(this.createRequestUrl(query, pagination))),

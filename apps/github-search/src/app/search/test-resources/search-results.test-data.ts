@@ -48,6 +48,7 @@ export const MOCK_USER_DETAIL_1: UserDetail = {
   ...MOCK_USER_1,
   bio: 'I die hard.',
   name: 'John McClane',
+  email: null,
   blog: 'nakatomi.tower',
   following: 6,
   followers: 9,

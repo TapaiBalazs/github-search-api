@@ -1,0 +1,6 @@
+<div class="messages-container mat-elevation-z8" *ngLet="error$ | async as error">
+  <pre data-test-id="query-message" *ngIf="!error">The query used for searching: {{ query$ | async }}</pre>
+  <pre data-test-id="error-message" *ngIf="error" class="error" role="alert">
+    <span>{{error.message}}</span>
+  </pre>
+</div>

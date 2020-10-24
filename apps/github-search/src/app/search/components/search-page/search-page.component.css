@@ -2,9 +2,10 @@
   display: grid;
   height: inherit;
   grid-template-columns: 2fr 1fr;
-  grid-template-rows: 1fr 2fr;
+  grid-template-rows: 2fr 1fr 4fr;
   grid-template-areas:
-    'form messages'
+    'form form'
+    'messages messages'
     'list details';
   box-sizing: border-box;
   padding: 1rem;
@@ -28,8 +29,4 @@
 .messages {
   grid-area: messages;
   padding: 1rem;
-}
-
-.search-button {
-  width: 5rem;
 }

@@ -20,7 +20,9 @@
       <ng-container matColumnDef="viewOnGithub" [sticky]="true">
         <mat-header-cell *matHeaderCellDef>GibHub link</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer">View {{ element.login }} on GitHub</a>
+          <a class="username" [href]="element.html_url" target="_blank" referrerpolicy="no-referrer"
+            >View {{ element.login }} on GitHub</a
+          >
         </mat-cell>
       </ng-container>
 

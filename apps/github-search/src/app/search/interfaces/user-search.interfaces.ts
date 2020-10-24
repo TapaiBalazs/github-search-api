@@ -29,6 +29,7 @@ export interface UserSearchListItem {
 export interface UserDetail extends UserSearchListItem {
   name: string;
   bio: string;
+  email: string;
   blog: string;
   following: number;
   followers: number;

@@ -16,9 +16,16 @@ import { SearchRoutingModule } from './search-routing.module';
 import { SearchResultsTableComponent } from './components/search-results-table/search-results-table.component';
 import { UserDetailsComponent } from './components/user-detail/user-details.component';
 import { SearchFilterFormComponent } from './components/search-filter-form/search-filter-form.component';
+import { SearchMessagesComponent } from './components/search-messages/search-messages.component';
 
 @NgModule({
-  declarations: [SearchPageComponent, SearchResultsTableComponent, UserDetailsComponent, SearchFilterFormComponent],
+  declarations: [
+    SearchPageComponent,
+    SearchResultsTableComponent,
+    UserDetailsComponent,
+    SearchFilterFormComponent,
+    SearchMessagesComponent,
+  ],
   imports: [
     CommonModule,
     SearchRoutingModule,

@@ -1,4 +1,4 @@
-<ng-container [formGroup]="form">
+<form [formGroup]="form">
   <mat-form-field>
     <mat-label>Username</mat-label>
     <input matInput type="text" formControlName="login" />
@@ -13,4 +13,14 @@
     <mat-label>email</mat-label>
     <input matInput type="email" formControlName="email" />
   </mat-form-field>
-</ng-container>
+
+  <button
+    mat-raised-button
+    class="search-button"
+    [color]="isSearchInProgress ? 'warn' : 'accent'"
+    (click)="triggerSearch.next(isSearchInProgress)"
+  >
+    <ng-container *ngIf="!isSearchInProgress; else stop">Search</ng-container>
+    <ng-template #stop>Stop</ng-template>
+  </button>
+</form>

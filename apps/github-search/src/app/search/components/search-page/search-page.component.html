@@ -1,24 +1,18 @@
 <div class="search-filter">
-  <githubsearch-search-filter-form> </githubsearch-search-filter-form>
-  <button
-    *ngLet="isSearching$ | async as isSearching"
-    mat-raised-button
-    class="search-button"
-    [color]="isSearching ? 'warn' : 'accent'"
-    (click)="triggerSearch(isSearching)"
-  >
-    <ng-container *ngIf="!isSearching; else stop">Search</ng-container>
-    <ng-template #stop>Stop</ng-template>
-  </button>
+  <githubsearch-search-filter-form [isSearchInProgress]="isSearching$ | async" (triggerSearch)="triggerSearch($event)">
+  </githubsearch-search-filter-form>
 </div>
 
-<div class="messages">
-  {{ query$ | async }}
-</div>
+<githubsearch-search-messages class="messages"></githubsearch-search-messages>
 
 <githubsearch-search-results-table class="results-table" [users]="users$ | async">
-  <mat-paginator [length]="totalCount$ | async" [pageSize]="pageSize$ | async" (page)="onPagination($event)" [pageSizeOptions]="[5, 10, 25, 100]">
+  <mat-paginator
+    [length]="totalCount$ | async"
+    [pageSize]="pageSize$ | async"
+    (page)="onPagination($event)"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+  >
   </mat-paginator>
 </githubsearch-search-results-table>
 
-<githubsearch-user-details class="user-details" [user]="selectedUser$ | async"> </githubsearch-user-details>
+<githubsearch-user-details class="user-details" [user]="selectedUser$ | async"></githubsearch-user-details>
