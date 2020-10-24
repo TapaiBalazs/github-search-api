@@ -3,6 +3,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { BehaviorSubject, combineLatest, Observable, of, Subject } from 'rxjs';
 import { catchError, pluck, scan, shareReplay, startWith, switchMap, tap } from 'rxjs/operators';
 import { DEFAULT_PAGINATION_STATE } from '../../constants/pagination.constants';
+import { SearchButtonEvent } from '../../interfaces/search-form.interfaces';
 import { UserSearchListItem, UserSearchListResult } from '../../interfaces/user-search.interfaces';
 import { UserSearchService } from '../../services/user-search.service';
 
@@ -29,6 +30,7 @@ export class SearchPageComponent {
   readonly isSearching$ = this.isSearching.asObservable();
   readonly selectedUser$ = this.userSearchService.selectedUser$;
   readonly pageSize$: Observable<number> = this.pagination$.pipe(pluck('pageSize'));
+  readonly pageIndex$: Observable<number> = this.pagination$.pipe(pluck('pageIndex'));
   readonly searchAction$ = this.searchAction
     .asObservable()
     .pipe(tap((action: SearchActions) => this.isSearching.next(action === 'START')));
@@ -66,8 +68,14 @@ export class SearchPageComponent {
 
   constructor(private userSearchService: UserSearchService) {}
 
-  triggerSearch(isSearching: boolean): void {
-    this.searchAction.next(isSearching ? 'STOP' : 'START');
+  triggerSearch({ isSearchInProgress, formIsDirty }: SearchButtonEvent): void {
+    if (formIsDirty) {
+      this.pagination.next({
+        ...DEFAULT_PAGINATION_STATE,
+        pageSize: this.pagination.getValue().pageSize,
+      });
+    }
+    this.searchAction.next(isSearchInProgress ? 'STOP' : 'START');
   }
 
   onPagination(page: PageEvent): void {

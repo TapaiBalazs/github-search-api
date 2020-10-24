@@ -78,7 +78,7 @@
         mat-raised-button
         class="search-button"
         [color]="isSearchInProgress ? 'warn' : 'accent'"
-        (click)="triggerSearch.next(isSearchInProgress)"
+        (click)="searchButtonClicked(isSearchInProgress)"
       >
         <ng-container *ngIf="!isSearchInProgress; else stop">Search</ng-container>
         <ng-template #stop>Stop</ng-template>

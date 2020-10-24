@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import { RawSearchForm } from '../../interfaces/search-form.interfaces';
+import { RawSearchForm, SearchButtonEvent } from '../../interfaces/search-form.interfaces';
 import { UserSearchService } from '../../services/user-search.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class SearchFilterFormComponent implements OnInit, OnDestroy {
   isSearchInProgress = false;
 
   @Output()
-  readonly triggerSearch = new EventEmitter<boolean>();
+  readonly triggerSearch = new EventEmitter<SearchButtonEvent>();
 
   readonly form = this.formBuilder.group({
     login: [''],
@@ -42,5 +42,13 @@ export class SearchFilterFormComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.valueChangesSub?.unsubscribe();
+  }
+
+  searchButtonClicked(isSearchInProgress: boolean): void {
+    this.triggerSearch.next({
+      isSearchInProgress,
+      formIsDirty: this.form.dirty,
+    });
+    this.form.markAsPristine();
   }
 }

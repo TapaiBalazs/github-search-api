@@ -10,3 +10,8 @@ export interface RawSearchForm {
   created: Date;
   createdQualifier: 'GT' | 'LT';
 }
+
+export interface SearchButtonEvent {
+  isSearchInProgress: boolean;
+  formIsDirty: boolean;
+}

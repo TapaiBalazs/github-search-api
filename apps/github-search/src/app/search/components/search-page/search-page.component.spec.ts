@@ -16,6 +16,7 @@ const MOCK_PAGINATION_EVENT_1 = {
   pageSize: 30,
   previousPageIndex: 1,
 };
+
 const MOCK_PAGINATION_EVENT_2 = {
   length: 200,
   pageIndex: 3,
@@ -56,7 +57,7 @@ describe('SearchPageComponent', () => {
         expect(result.items[0].login).toEqual('shouldreach');
       });
 
-      component.triggerSearch(false);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
     })
   );
 
@@ -71,7 +72,7 @@ describe('SearchPageComponent', () => {
         expect(result.items.length).toEqual(0);
       });
 
-      component.triggerSearch(false);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
     })
   );
 
@@ -86,8 +87,8 @@ describe('SearchPageComponent', () => {
         expect(result.items.length).toEqual(0);
       });
 
-      component.triggerSearch(false);
-      component.triggerSearch(true);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
+      component.triggerSearch({ isSearchInProgress: true, formIsDirty: false });
     })
   );
 
@@ -104,7 +105,7 @@ describe('SearchPageComponent', () => {
       component.onPagination(MOCK_PAGINATION_EVENT_1);
       component.onPagination(MOCK_PAGINATION_EVENT_2);
 
-      component.triggerSearch(false);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
     })
   );
 
@@ -120,9 +121,32 @@ describe('SearchPageComponent', () => {
         expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(3, MOCK_PAGINATION_EVENT_2);
       });
 
-      component.triggerSearch(false);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
       component.onPagination(MOCK_PAGINATION_EVENT_1);
       component.onPagination(MOCK_PAGINATION_EVENT_2);
+    })
+  );
+
+  it(
+    `after a search action, when searching again with a changed query, the pagination pageIndex should be set to zero`,
+    waitForAsync(() => {
+      MOCK_USER_SEARCH_SERVICE.search.mockReturnValue(of({}));
+
+      component.searchResults$.pipe(skip(4), take(1)).subscribe((_) => {
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenCalledTimes(4);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(1, DEFAULT_PAGINATION_STATE);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(2, MOCK_PAGINATION_EVENT_1);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(3, MOCK_PAGINATION_EVENT_2);
+        expect(MOCK_USER_SEARCH_SERVICE.search).toHaveBeenNthCalledWith(4, {
+          ...DEFAULT_PAGINATION_STATE,
+          pageSize: MOCK_PAGINATION_EVENT_2.pageSize,
+        });
+      });
+
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: false });
+      component.onPagination(MOCK_PAGINATION_EVENT_1);
+      component.onPagination(MOCK_PAGINATION_EVENT_2);
+      component.triggerSearch({ isSearchInProgress: false, formIsDirty: true });
     })
   );
 });
