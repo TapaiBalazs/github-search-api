@@ -2,7 +2,7 @@
   <mat-card class="mat-elevation-z8">
     <mat-card-header>
       <mat-card-title>{{ user.name }}</mat-card-title>
-      <mat-card-subtitle>{{ user.login }}</mat-card-subtitle>
+      <mat-card-subtitle>{{ user.login }} joined {{ user.created_at | date }}</mat-card-subtitle>
       <mat-card-subtitle>Location: {{ user.location }}</mat-card-subtitle>
       <mat-card-subtitle>Company: {{ user.company }}</mat-card-subtitle>
     </mat-card-header>
@@ -14,22 +14,10 @@
           <p>
             Blog: <a [href]="user.blog" target="_blank">{{ user.blog }}</a>
           </p>
-          <p>
-            Following:
-            <a [href]="user.following_url" target="_blank">{{ user.following }}</a>
-          </p>
-          <p>
-            Followers:
-            <a [href]="user.followers_url" target="_blank">{{ user.followers }}</a>
-          </p>
-          <p>
-            Public gists:
-            <a [href]="user.gists_url" target="_blank">{{ user.public_gists }}</a>
-          </p>
-          <p>
-            Public repositories:
-            <a [href]="user.repos_url" target="_blank">{{ user.public_repos }}</a>
-          </p>
+          <p>Following: {{ user.following }}</p>
+          <p>Followers: {{ user.followers }}</p>
+          <p>Public gists: {{ user.public_gists }}</p>
+          <p>Public repositories: {{ user.public_repos }}</p>
         </div>
         <img class="user-avatar" [src]="user.avatar_url" [alt]="user.name + '\'s avatar'" />
       </div>

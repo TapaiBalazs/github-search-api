@@ -8,25 +8,24 @@
     'messages messages'
     'list details';
   box-sizing: border-box;
-  padding: 1rem;
 }
 
 .search-filter {
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   grid-area: form;
 }
 
 .results-table {
-  padding: 1rem;
+  padding: 0 1rem;
   grid-area: list;
 }
 
 .user-details {
   grid-area: details;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .messages {
   grid-area: messages;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
 }

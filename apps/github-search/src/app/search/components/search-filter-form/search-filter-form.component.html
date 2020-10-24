@@ -1,26 +1,88 @@
-<form [formGroup]="form">
-  <mat-form-field>
-    <mat-label>Username</mat-label>
-    <input matInput type="text" formControlName="login" />
-  </mat-form-field>
+<form class="search-form mat-elevation-z8" [formGroup]="form">
+  <div class="first-row">
+    <mat-form-field appearance="outline">
+      <mat-label>Username</mat-label>
+      <input matInput type="text" formControlName="login" />
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput type="text" formControlName="name" />
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name" />
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>email</mat-label>
-    <input matInput type="email" formControlName="email" />
-  </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" />
+    </mat-form-field>
 
-  <button
-    mat-raised-button
-    class="search-button"
-    [color]="isSearchInProgress ? 'warn' : 'accent'"
-    (click)="triggerSearch.next(isSearchInProgress)"
-  >
-    <ng-container *ngIf="!isSearchInProgress; else stop">Search</ng-container>
-    <ng-template #stop>Stop</ng-template>
-  </button>
+    <mat-form-field appearance="outline">
+      <mat-label>Location</mat-label>
+      <input matInput type="text" formControlName="location" />
+    </mat-form-field>
+  </div>
+  <div class="second-row">
+    <fieldset class="fieldset">
+      <legend>Created</legend>
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Qualifier</mat-label>
+        <mat-select formControlName="createdQualifier">
+          <mat-option value="GT">After</mat-option>
+          <mat-option value="LT">Before</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Date</mat-label>
+        <input matInput formControlName="created" [matDatepicker]="picker" />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Repos</legend>
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Qualifier</mat-label>
+        <mat-select formControlName="repoQualifier">
+          <mat-option value="GT">Greater than</mat-option>
+          <mat-option value="LT">Less than</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Number</mat-label>
+        <input matInput type="number" formControlName="repos" />
+      </mat-form-field>
+    </fieldset>
+
+    <fieldset class="fieldset">
+      <legend>Followers</legend>
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Qualifier</mat-label>
+        <mat-select formControlName="followerQualifier">
+          <mat-option value="GTOE">Greater than or equals</mat-option>
+          <mat-option value="GT">Greater than</mat-option>
+          <mat-option value="LTOE">Less than or equals</mat-option>
+          <mat-option value="LT">Less than</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="fieldset-input" appearance="outline">
+        <mat-label>Number</mat-label>
+        <input matInput type="number" formControlName="followers" />
+      </mat-form-field>
+    </fieldset>
+
+    <div class="button-container">
+      <button
+        mat-raised-button
+        class="search-button"
+        [color]="isSearchInProgress ? 'warn' : 'accent'"
+        (click)="triggerSearch.next(isSearchInProgress)"
+      >
+        <ng-container *ngIf="!isSearchInProgress; else stop">Search</ng-container>
+        <ng-template #stop>Stop</ng-template>
+      </button>
+    </div>
+  </div>
 </form>

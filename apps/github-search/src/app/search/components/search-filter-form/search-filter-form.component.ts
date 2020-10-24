@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { RawSearchForm } from '../../interfaces/search-form.interfaces';
@@ -23,6 +23,13 @@ export class SearchFilterFormComponent implements OnInit, OnDestroy {
     login: [''],
     name: [''],
     email: [''],
+    location: [''],
+    repos: [null],
+    repoQualifier: ['GT', Validators.required],
+    followers: [null],
+    followerQualifier: ['GT', Validators.required],
+    created: [null],
+    createdQualifier: ['LT', Validators.required],
   });
 
   constructor(private formBuilder: FormBuilder, private userSearchService: UserSearchService) {}

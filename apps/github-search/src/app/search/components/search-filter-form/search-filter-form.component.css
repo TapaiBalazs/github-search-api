@@ -1,3 +1,41 @@
+.search-form {
+  display: flex;
+  flex-flow: row wrap;
+  padding: 1rem;
+}
+
+.second-row,
+.first-row {
+  display: flex;
+  flex: 1 1 auto;
+  justify-content: space-between;
+}
+
+.first-row {
+  padding: 0 1rem;
+}
+
+.first-row mat-form-field {
+  flex: 1 1 25%;
+  margin-right: 1rem;
+}
+
+.fieldset {
+  border: none;
+  flex: 2 2 30%;
+}
+
+.fieldset-input {
+  margin-right: 0.3rem;
+}
+
+.button-container {
+  display: flex;
+  flex: 1 1 10%;
+  justify-content: center;
+  align-items: center;
+}
+
 .search-button {
   width: 5rem;
 }

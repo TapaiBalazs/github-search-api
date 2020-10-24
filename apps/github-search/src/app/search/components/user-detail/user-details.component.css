@@ -20,3 +20,7 @@
   align-items: center;
   justify-content: center;
 }
+
+.view-on-github-link {
+  align-self: flex-end;
+}

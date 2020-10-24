@@ -37,4 +37,5 @@ export interface UserDetail extends UserSearchListItem {
   public_repos: number;
   company: string;
   location: string;
+  created_at: string;
 }
