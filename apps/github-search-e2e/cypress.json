@@ -8,5 +8,9 @@
   "video": true,
   "videosFolder": "../../dist/cypress/apps/github-search-e2e/videos",
   "screenshotsFolder": "../../dist/cypress/apps/github-search-e2e/screenshots",
-  "chromeWebSecurity": false
+  "chromeWebSecurity": false,
+  "viewportWidth": 1920,
+  "viewportHeight": 1080,
+  "experimentalFetchPolyfill": true,
+  "experimentalNetworkStubbing": true
 }

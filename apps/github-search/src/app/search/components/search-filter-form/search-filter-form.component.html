@@ -1,23 +1,23 @@
-<form class="search-form mat-elevation-z8" [formGroup]="form">
+<form class="search-form mat-elevation-z8" [formGroup]="form" (ngSubmit)="$event.preventDefault()">
   <div class="first-row">
     <mat-form-field appearance="outline">
       <mat-label>Username</mat-label>
-      <input matInput type="text" formControlName="login" />
+      <input matInput type="text" formControlName="login" data-test-id="login" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Name</mat-label>
-      <input matInput type="text" formControlName="name" />
+      <input matInput type="text" formControlName="name" data-test-id="name" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Email</mat-label>
-      <input matInput type="email" formControlName="email" />
+      <input matInput type="email" formControlName="email" data-test-id="email" />
     </mat-form-field>
 
     <mat-form-field appearance="outline">
       <mat-label>Location</mat-label>
-      <input matInput type="text" formControlName="location" />
+      <input matInput type="text" formControlName="location" data-test-id="location" />
     </mat-form-field>
   </div>
   <div class="second-row">
@@ -76,6 +76,7 @@
     <div class="button-container">
       <button
         mat-raised-button
+        data-test-id="search-button"
         class="search-button"
         [color]="isSearchInProgress ? 'warn' : 'accent'"
         (click)="searchButtonClicked(isSearchInProgress)"

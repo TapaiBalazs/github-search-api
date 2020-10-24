@@ -30,7 +30,7 @@
       <ng-container matColumnDef="userDetails" [sticky]="true">
         <mat-header-cell *matHeaderCellDef>Details</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-button (click)="openDetails(element)">
+          <button [attr.data-test-id]="element.login" mat-button (click)="openDetails(element)">
             <span class="see-details-button-text">See details</span>
             <mat-icon>read_more</mat-icon>
           </button>
@@ -39,7 +39,7 @@
 
       <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
-      <tr class="mat-row no-data-row" *matNoDataRow>
+      <tr data-test-id="data-table-empty-message" class="mat-row no-data-row" *matNoDataRow>
         <h3>
           No users match your search criteria.
         </h3>
