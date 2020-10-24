@@ -7,10 +7,13 @@ _Acceptance criteria:_
 - [x] I see notable information for each search result, such as the description, star/follower count, profile pictures, etc.
 - [x] I can select a search result and be taken to the applicable page on github.com API
 
-## Finished
+## Finished application
 
 - [Git Repository](https://github.com/TapaiBalazs/github-search-api)
 - [Deployed application](https://tdl-tapaibalazs-github-search.netlify.app/)
+
+`npm run test` runs the unit tests
+`npm run e2e` runs the Cypress tests
 
 ### Problems I encountered
 - I wanted to display user data directly in the grid, using the `zip` operator and fetching the user data for each search result, but that collided with GitHub's rate limiting, therefore I went with a user detail component.
