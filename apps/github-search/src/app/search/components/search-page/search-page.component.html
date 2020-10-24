@@ -1,6 +1,7 @@
 <div class="search-filter">
   <githubsearch-search-filter-form [isSearchInProgress]="isSearching$ | async" (triggerSearch)="triggerSearch($event)">
   </githubsearch-search-filter-form>
+  <mat-progress-bar mode="indeterminate" *ngIf="isSearching$ | async"></mat-progress-bar>
 </div>
 
 <githubsearch-search-messages class="messages"></githubsearch-search-messages>
